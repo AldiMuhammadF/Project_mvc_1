@@ -23,7 +23,8 @@ module.exports = {
                         item_name: body.namaBarang,
                         price: body.harga,
                         stok: body.stok,
-                        owner: user.first_name
+                        owner: user.first_name,
+                        email: user.email
                     }
                     serviceAddBarang(data_item, (err, results) => {
                         if (err) {
@@ -57,7 +58,8 @@ module.exports = {
                 } else {
                     var user = decoded.result
                     const data = {
-                        owner: user.first_name
+                        owner: user.first_name,
+                        email: user.email
                     }
                     serviceGetBarang(data, (err, results) => {
                         if (err) {
@@ -92,12 +94,19 @@ module.exports = {
                         price: body.harga,
                         stok: body.stok,
                         item_code: body.id,
-                        owner: user.first_name
+                        email: user.email
                     }
                     serviceUpdateBarang(data, (err, results) => {
                         if (err) {
-                            console.error(err);
-                            return;
+                            if (err === "false") {
+                                return res.json({
+                                    success: 0,
+                                    pesan: "duduk gonanmu"
+                                })
+                            } else {
+                                console.error(err);
+                                return;
+                            }
                         } if (!results) {
                             return res.json({
                                 success: 0,

@@ -25,19 +25,29 @@ module.exports = {
             })
     },
     serviceUpdateBarang: (data, callBack) => {
-        db.query(`update item set item_name=?, price=?, stok=? where item_code=? and owner=?`,
-            [
-                data.item_name,
-                data.price,
-                data.stok,
-                data.item_code,
-                data.owner], (err, results, fields) => {
-                    if (err) {
-                        return callBack(err);
-                    } else {
-                        return callBack(null, results);
-                    }
-                })
+        db.query(
+            `select * from item where item_code=?`,
+            [data.item_code],
+            (err, result)=>{
+                if(err){
+                    return callBack(err)
+                }else if(data.email === result[0].email){
+                    db.query(
+                        `update item set ? where item_code=?`,
+                        [data, data.item_code],
+                        (err, result)=>{
+                            if(err){
+                                return callBack(err)
+                            }else{
+                                return callBack(null, result)
+                            }
+                        }
+                    )
+                }else{
+                    return callBack("false")
+                }
+            }
+        )
     },
     serviceDeleteBarang: (data, callBack) => {
         db.query(`select * from item where item_code=? and owner=?`, [data.item_code, data.owner], (err, result) => {
