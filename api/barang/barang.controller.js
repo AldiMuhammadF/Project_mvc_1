@@ -23,6 +23,7 @@ module.exports = {
                         item_name: body.namaBarang,
                         price: body.harga,
                         stok: body.stok,
+                        item_kategori: body.kategori,
                         owner: user.first_name,
                         email: user.email
                     }
@@ -93,6 +94,7 @@ module.exports = {
                         item_name: body.namaBarang,
                         price: body.harga,
                         stok: body.stok,
+                        item_kategori: body.kategori,
                         item_code: body.id,
                         email: user.email
                     }
