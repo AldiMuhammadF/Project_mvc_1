@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Web</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="css">
+        <h1>Register</h1>
+        <form method="POST" action="/api/users/tambahuser">
+            <input type="text" name="nama_awal" placeholder="Nama Depan" required />
+            <input type="text" name="nama_akhir" placeholder="Nama Belakang" required />
+            <input type="text" name="gender" placeholder="Gender" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="password" name="pw" placeholder="Password" required />
+            <input type="number" name="nomer" placeholder="Number" required />
+            <input type="submit" value="register" />
+        </form>
+        <br />
+        <center><a href="/">Kembali ke Login</a></center>
+    </div>
+</body>
+
+</html>

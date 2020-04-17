@@ -9,9 +9,9 @@ let {
 let router = require("express").Router();
 let { checkToken } = require("../../auth/token_validation");
 
-router.post("/", checkToken, controllerAddItem);
-router.get("/", checkToken, controllerGetItem);
-router.patch("/", checkToken, controllerUpdateItem);
-router.delete("/", checkToken, controllerdeleteItem);
+router.post("/tambah", checkToken, controllerAddItem);
+router.get("/ambil", checkToken, controllerGetItem);
+router.patch("/edit", checkToken, controllerUpdateItem);
+router.delete("/hapus", checkToken, controllerdeleteItem);
 
 module.exports = router;

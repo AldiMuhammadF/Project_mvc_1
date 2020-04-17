@@ -12,21 +12,26 @@ let { sign } = require("jsonwebtoken");
 
 module.exports = {
   controllerAddUser: (req, res) => {
-    let body = req.body;
+    let register_Data = {
+      first_name: req.body.nama_awal,
+      last_name: req.body.nama_akhir,
+      gender: req.body.gender,
+      email: req.body.email,
+      password: req.body.pw,
+      number: req.body.nomer
+    };
     let salt = genSaltSync(10);
-    body.password = hashSync(`${body.password}`, salt);
-    serviceAddUser(body, (err, results) => {
+    register_Data.password = hashSync(`${register_Data.pw}`, salt);
+    serviceAddUser(register_Data, (err, results) => {
       if (err) {
         console.error(err);
         return res.status(500).json({
           succes: 0,
           message: "database connection error"
         });
+      } else {
+        return res.redirect('/');
       }
-      return res.status(200).json({
-        succes: 1,
-        data: results
-      });
     });
   },
   controllerGetUsersById: (req, res) => {
@@ -105,7 +110,10 @@ module.exports = {
     });
   },
   controllerLogin: (req, res) => {
-    let body = req.body;
+    let body = {
+      email: req.body.email,
+      password: req.body.password
+    }
     serviceGetUserByEmail(body.email, (err, results) => {
       if (err) {
         console.error(err);
@@ -123,12 +131,7 @@ module.exports = {
         let jsonwebtoken = sign({ result: results }, "secretkey", {
           expiresIn: "1h"
         });
-        return res.json({
-          succes: 1,
-          message: "login succesfuly, your Account Already Use",
-          account: results,
-          token: jsonwebtoken
-        });
+        return res.redirect('/home');
       } else {
         return res.json({
           succes: 0,
